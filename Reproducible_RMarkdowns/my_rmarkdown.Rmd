@@ -1,0 +1,34 @@
+---
+title: "Test"
+author: "Melissa Van Bussel"
+date: "01/02/2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Header
+
+This is some paragraph. $x^2 = 6$. 
+
+```{r}
+# Define required packages
+required_packages <- c("readxl", "ggplot2", "rstudioapi")
+need_install <- required_packages[!(required_packages) %in% installed.packages()]
+# Install packages
+if (length(need_install) > 0) {
+  install.packages(need_install)
+}
+# Load packages
+lapply(required_packages, require, character.only = TRUE)
+# Set working directory 
+dir_script <- dirname(rstudioapi::getSourceEditorContext()$path)
+setwd(dir_script)
+# Load data
+my_data <- read_excel("my_data.xlsx")
+# Create plot
+ggplot(data = my_data, aes(x = x_var, y = y_var)) +
+  geom_line()
+```
