@@ -1,3 +1,4 @@
+# Code used in this tutorial video: https://www.youtube.com/watch?v=Ck10_VtN_88
 # Load packages
 library(h2o)
 library(mlbench)
