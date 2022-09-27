@@ -13,5 +13,5 @@ my_email_object <- render_email("blastula_email.qmd")
 smtp_send(my_email_object,
           from = "ggnot_throwaway@outlook.com",
           to = "ggnot_throwaway@outlook.com",
-          subject = "My first email from blastula!",
+          subject = paste0("Email from blastula on ", Sys.Date()),
           credentials = creds_file("ggnot_throwaway_creds"))
