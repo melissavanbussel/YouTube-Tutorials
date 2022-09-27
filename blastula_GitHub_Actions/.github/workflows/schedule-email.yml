@@ -1,0 +1,29 @@
+name: Send email using Quarto and blastula
+on: 
+  schedule:
+    - cron: '0 9 * * *'
+jobs:
+  render:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v1
+      - name: Set up pandoc
+        uses: r-lib/actions/setup-pandoc@master
+      - name: Install dependencies
+        run: |
+          install.packages("blastula", type = "win.binary")
+        shell: Rscript {0}
+      - name: Script
+        run: Rscript send_email.R
+      - name: Commit files
+        run: |
+          git config --local user.name github-actions
+          git config --local user.email "actions@github.com"
+          git add output/*
+          git commit -am "commit on $(date)"
+          git push origin main
+        env:
+          REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+          username: github-actions
