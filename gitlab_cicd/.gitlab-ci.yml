@@ -1,0 +1,7 @@
+send-email:
+  image: rocker/r-ver:4.0.2
+  before_script:
+    - apt-get update && apt-get -y install pandoc
+    - Rscript -e "install.packages('blastula')"
+  script: 
+    - Rscript send_email.R
