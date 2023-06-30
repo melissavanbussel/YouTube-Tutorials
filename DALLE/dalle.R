@@ -21,3 +21,12 @@ response <- openai$Image$create(
 
 # Extract the URL where the generated image can be downloaded (URL is only valid for 1h)
 response$data[[1]]$url
+
+# Alternative approach that skips the need for reticulate, and uses the openai R package instead: 
+library(openai)
+response <- create_image(
+  prompt = "A white siamese cat",
+  n = 1,
+  size = "1024x1024"
+)
+response$data$url
