@@ -83,7 +83,7 @@ my_prompt <- r"(An Intelligent and well obtained film worth to export! <br /><br
 # Use model
 my_results <- create_completion(
   model = "ada:ft-personal-2023-07-19-03-21-19",
-  prompt = c(my_prompt, my_prompt),
+  prompt = my_prompt,
   max_tokens = 1, 
   temperature = 0
 )
