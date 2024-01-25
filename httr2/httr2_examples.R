@@ -3,8 +3,8 @@ library(httr2)
 library(tidyverse)
 
 # Define access tokens
-access_token_openai <- "YOUR KEY HERE"
-access_token_gitlab <- "YOUR KEY HERE"
+access_token_openai <- Sys.getenv("TOKEN_OPENAI")
+access_token_gitlab <- Sys.getenv("TOKEN_GITLAB")
 
 # Define base URLs
 base_url_openai <- "https://api.openai.com/v1"
@@ -15,15 +15,15 @@ endpoint_openai <- "/images/generations"
 endpoint_gitlab <- "/projects/53405032/issues"
 
 # Define request
-req_openai <- request(paste0(base_url_openai, endpoint_openai))
-req_gitlab <- request(paste0(base_url_gitlab, endpoint_gitlab))
+req_openai <- request(base_url_openai) %>% 
+  req_url_path_append(endpoint_openai)
+req_gitlab <- request(base_url_gitlab) %>% 
+  req_url_path_append(endpoint_gitlab)
 
 # Provide access token via header
 headers_openai <- req_openai %>%
-  req_headers(
-    `Content-Type` = "application/json",
-    `Authorization` = paste0("Bearer ", access_token_openai)
-  )
+  req_auth_bearer(access_token_openai)
+
 headers_gitlab <- req_gitlab %>%
   req_headers(
     `PRIVATE-TOKEN` = access_token_gitlab
